@@ -25,17 +25,17 @@ function addCat(req, res, next) {
 }
 
 function defaultErrorHandler(req, res, next) {
-  res.status(400).send("bad request")
+  res.status(404).send("route not found")
 }
 
 server.get('/', express.static(__dirname + '/../public'))
 server.get('/api/cats', getAllCats)
 server.post('/api/cats', addCat)
 server.get('/api/dogs', (req, res, next) => {
-  res.status(418).send()
+  res.status(418).send("Im a teapot!")
 })
-server.use('*')
+server.use('*', defaultErrorHandler)
 
 server.listen(port, () => {
-  console.log("server is running on port: ", port)
+  console.log("server is running on port: ", port, "you better go catch it!")
 })
